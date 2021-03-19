@@ -1,0 +1,108 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-grow: 4;
+  flex-direction: column;
+  margin: 50px;
+}
+
+.commonText {
+  margin: 0;
+  font-family: Breamcatcher;
+  font-size: 44px;
+  text-align: left;
+  color: #ff5155;
+  margin: 0 0 10 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* flex: 1 0 auto; */
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  height: 70vh;
+}
+
+.scoreBoard {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  padding: 33px;
+  border-radius: 15px;
+  border: solid 3px var(--textColor);
+  margin-right: 20px;
+}
+
+.scoreBoard .title {
+  display: flex;
+  flex-grow: 0;
+  align-items: center;
+  justify-content: center;
+}
+.scoreBoard h3 {
+  font-size: 30px;
+  margin: 0px;
+}
+
+.alignLeftCenter {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+ul {
+  list-style-type: none;
+  margin: 20px 0px;
+  padding: 0px;
+}
+
+li {
+  font-size: 30px;
+  color: #fff;
+}
+
+.gameArea {
+  border: solid 3px var(--textColor);
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin: 20px 0px;
+}
+
+.footer .btn {
+  padding: 0px;
+}
+
+input {
+  text-align: center;
+}
+
+.displayWord {
+  font-size: 92px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.displayWord .match {
+  color: green;
+}
+
+.displayWord .unmatch{
+  color : #445298
+}
