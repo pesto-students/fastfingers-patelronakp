@@ -107,7 +107,7 @@ select:focus {
   display: inline-block;
   color: var(--textColor);
   text-align: center;
-  display: flex;
+  /* display: flex; */
   align-items: center;
 }
 

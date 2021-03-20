@@ -1,14 +1,35 @@
 import React, { useState, useEffect } from 'react'
+import { getTotalTimeFromMiliSeconds } from '../../Utilities/constants';
 import './CountDownSpinner.css'
 
-export default function CountDownSpinner({ timer }) {
+export default function CountDownSpinner({ timer, wordToDisplay, onTimeOut }) {
     // const circleRef = useRef(null);
-    let miliseconds = timer * 1000;
     
-    const center = 60;
-    const normalizedRadius = center - 4 * 2;
-    const circumference = normalizedRadius * 2 * Math.PI;
-    const offset = 10;
+    const [remainingTime, setRemainingTime] = useState();
+    // const center = 60;
+    // const normalizedRadius = center - 4 * 2;
+    // const circumference = normalizedRadius * 2 * Math.PI;
+    // const offset = 10;
+
+
+    useEffect(() => {
+        let miliseconds = timer * 1000;
+        setRemainingTime(miliseconds);
+    }, [wordToDisplay,timer]);
+
+    useEffect(() => {
+        const intervalID = setInterval(() => {
+            let leftTime = remainingTime - 10;
+            if (leftTime <= 0) {
+                clearInterval(intervalID);
+                leftTime = 0;
+                onTimeOut();
+            }
+            setRemainingTime(leftTime);
+
+        }, 10);
+        return () => clearInterval(intervalID);
+    })
 
     return (
         <div>
@@ -24,7 +45,7 @@ export default function CountDownSpinner({ timer }) {
                     strokeDashoffset={offset ? offset : 0}
                 />
             </svg> */}
-            <h1>{timer}</h1>
+            <h1>{getTotalTimeFromMiliSeconds(remainingTime)}</h1>
         </div>
     )
 }
