@@ -21,3 +21,8 @@ export const getTotalTimeFromSeconds = (totalSeconds) => {
     const minutes = parseInt((totalSeconds - seconds) / 60);
     return `${prefix(minutes)}:${prefix(seconds)}`;
 }
+
+export const getTotalTimeFromMiliSeconds = (totalSeconds) => {
+    const seconds = (totalSeconds / 1000).toFixed(2);
+    return `${seconds}`;
+}

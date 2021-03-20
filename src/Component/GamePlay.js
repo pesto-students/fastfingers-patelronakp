@@ -11,7 +11,7 @@ export default function GamePlay({ onFinishGame, difficultyLevel }) {
     const [errorMessage, setErrorMessage] = useState("");
     const [activeWord, setActiveWord] = useState("");
     const [word, setWord] = useState("");
-    const [remainingTime, setRemainingTime] = useState();
+    const [remainingTime, setRemainingTime] = useState(0);
     const [difficultyFactor, setdifficultyFactor] = useState(0);
 
 
@@ -37,7 +37,7 @@ export default function GamePlay({ onFinishGame, difficultyLevel }) {
                 setErrorMessage(error.Message);
             });
         return () => { };
-    }, [errorMessage]);
+    }, [errorMessage, difficultyLevel]);
 
     const generateNextWord = () => {
         const randomNumber = Math.floor(
@@ -50,6 +50,7 @@ export default function GamePlay({ onFinishGame, difficultyLevel }) {
         let timer = Math.ceil(newWord.length / updateddifficultyFactor);
         setdifficultyFactor(updateddifficultyFactor);
         setRemainingTime(timer > 2 ? timer : 2);
+        console.log(timer);
     }
 
     const onChangeOfInput = (e) => {
@@ -58,12 +59,13 @@ export default function GamePlay({ onFinishGame, difficultyLevel }) {
         setWord(value.toUpperCase());
     };
 
+
     return (
         <div>
-            <CountDownSpinner timer={remainingTime} />
+            <CountDownSpinner timer={remainingTime} wordToDisplay={activeWord} onTimeOut={onFinishGame} />
             <WordCheck wordToDisplay={activeWord} wordTocheck={word} onWordMatch={generateNextWord} />
             <div>
-                <input type="text" name="userWord" onChange={onChangeOfInput} value={word} ></input>
+                <input type="text" name="userWord" onChange={onChangeOfInput} value={word} autoComplete="off"></input>
             </div>
         </div>
     )

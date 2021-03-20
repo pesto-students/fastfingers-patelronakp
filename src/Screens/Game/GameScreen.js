@@ -2,26 +2,36 @@ import React, { useState, useEffect } from 'react'
 import { KEYS } from '../../Utilities/constants'
 import storageHelper from '../../Utilities/storageHelper'
 import './GameScreen.css'
-import { FaUser, FaGamepad, Fa } from 'react-icons/fa';
+import { FaUser, FaGamepad, } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import GamePlay from '../../Component/GamePlay'
 import LiveScore from '../../Component/Livescore';
 
 export default function GameScreen() {
-    let userInfo = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
-    const [userName, setUserName] = useState(userInfo.userName);
-    const [gameMode, setGameMode] = useState(userInfo.gameMode);
-    const [score, setScore] = useState("00:00");
+    // let userInfo = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
+    // const [userName, setUserName] = useState(userInfo.userName);
+    // const [gameMode, setGameMode] = useState(userInfo.gameMode);
+    const [userName, setUserName] = useState("");
+    const [gameMode, setGameMode] = useState("");
+    const [score, setScore] = useState(0);
 
-    // useEffect(() => {
-    //     let { gameMode, userName } = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
-    //     setGameMode(gameMode);
-    //     setUserName(userName);
-    // }, []);
+    useEffect(() => {
+        const intervalID = setInterval(() =>
+            setScore(score + 1)
+            , 1000);
+        return () => clearInterval(intervalID);
+    });
+
+    useEffect(() => {
+        let { gameMode, userName } = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
+        setGameMode(gameMode);
+        setUserName(userName);
+        console.log(`useEffect GameScree :: ${gameMode} + ${userName}`);
+    }, []);
 
 
     const onFinishGame = () => {
-        return "";
+        
     }
 
     return (
@@ -31,7 +41,7 @@ export default function GameScreen() {
                     <p className="commonText"><FaUser size="30px" /> {userName}</p>
                     <p className="commonText"><FaGamepad size="30px" /> {gameMode}</p>
                 </div>
-                <LiveScore />
+                <LiveScore displayScore={score} />
             </div>
             <div className="content">
                 <div className="scoreBoard">
