@@ -4,8 +4,8 @@ import './CountDownSpinner.css'
 
 export default function CountDownSpinner({ timer, wordToDisplay, onTimeOut }) {
     // const circleRef = useRef(null);
-    
-    const [remainingTime, setRemainingTime] = useState();
+
+    const [remainingTime, setRemainingTime] = useState((timer * 1000));
     // const center = 60;
     // const normalizedRadius = center - 4 * 2;
     // const circumference = normalizedRadius * 2 * Math.PI;
@@ -15,21 +15,24 @@ export default function CountDownSpinner({ timer, wordToDisplay, onTimeOut }) {
     useEffect(() => {
         let miliseconds = timer * 1000;
         setRemainingTime(miliseconds);
-    }, [wordToDisplay,timer]);
+    }, [wordToDisplay, timer]);
 
     useEffect(() => {
-        const intervalID = setInterval(() => {
+        let intervalID;
+        if (timer === 0) return;
+        intervalID = setInterval(() => {
             let leftTime = remainingTime - 10;
             if (leftTime <= 0) {
                 clearInterval(intervalID);
                 leftTime = 0;
+                debugger;
                 onTimeOut();
-            }
-            setRemainingTime(leftTime);
+            } else
+                setRemainingTime(leftTime);
 
         }, 10);
         return () => clearInterval(intervalID);
-    })
+    }, [remainingTime])
 
     return (
         <div>

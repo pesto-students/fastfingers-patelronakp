@@ -65,7 +65,7 @@ export default function GamePlay({ onFinishGame, difficultyLevel }) {
             <CountDownSpinner timer={remainingTime} wordToDisplay={activeWord} onTimeOut={onFinishGame} />
             <WordCheck wordToDisplay={activeWord} wordTocheck={word} onWordMatch={generateNextWord} />
             <div>
-                <input type="text" name="userWord" onChange={onChangeOfInput} value={word} autoComplete="off"></input>
+                <input type="text" name="userWord" onChange={onChangeOfInput} value={word} autoComplete="off" autoFocus ></input>
             </div>
         </div>
     )

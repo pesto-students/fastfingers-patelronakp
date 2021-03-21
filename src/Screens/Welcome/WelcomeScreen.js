@@ -12,7 +12,7 @@ export default function WelcomeScreen({ changePage }) {
 
     const onSubmitSignUpForm = (e) => {
         e.preventDefault();
-        storageHelper.save(KEYS.UserInfo, JSON.stringify({ userName: userName.toUpperCase(), gameMode }));
+        storageHelper.save(KEYS.UserInfo, JSON.stringify({ userName: userName.toUpperCase(), gameMode, scoreList: [] }));
         changePage(1);
     };
 

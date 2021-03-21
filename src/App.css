@@ -45,7 +45,6 @@ body {
   margin: 0px;
   opacity: 0.8;
   display: flex;
-
 }
 
 h1 {
@@ -118,6 +117,40 @@ select:focus {
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.commonText {
+  margin: 0;
+  font-family: Breamcatcher;
+  font-size: 44px;
+  text-align: left;
+  color: #ff5155;
+  margin: 0 0 10 0;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-grow: 4;
+  flex-direction: column;
+  margin: 50px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* flex: 1 0 auto; */
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  height: 70vh;
 }
 
 @media (prefers-reduced-motion: no-preference) {

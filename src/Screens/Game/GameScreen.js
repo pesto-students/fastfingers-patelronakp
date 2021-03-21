@@ -1,46 +1,65 @@
-import React, { useState, useEffect } from 'react'
-import { KEYS } from '../../Utilities/constants'
+import React, { useState, useEffect, useRef } from 'react'
+import { KEYS, getTotalTimeFromSeconds } from '../../Utilities/constants'
 import storageHelper from '../../Utilities/storageHelper'
 import './GameScreen.css'
-import { FaUser, FaGamepad, } from 'react-icons/fa';
+
 import { IoClose } from 'react-icons/io5';
 import GamePlay from '../../Component/GamePlay'
 import LiveScore from '../../Component/Livescore';
+import UserInfo from '../../Component/UserInfo';
 
-export default function GameScreen() {
+export default function GameScreen({ changePage }) {
     // let userInfo = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
     // const [userName, setUserName] = useState(userInfo.userName);
     // const [gameMode, setGameMode] = useState(userInfo.gameMode);
     const [userName, setUserName] = useState("");
     const [gameMode, setGameMode] = useState("");
+    const [scoreList, setScoreList] = useState([]);
     const [score, setScore] = useState(0);
+    const scoreTimerRef = useRef(null)
+
+    // const intervalID = setInterval(() =>
+    //     setScore(score + 1)
+    //     , 1000);
 
     useEffect(() => {
-        const intervalID = setInterval(() =>
+        console.log("score card call");
+        scoreTimerRef.current = setInterval(() =>
             setScore(score + 1)
             , 1000);
-        return () => clearInterval(intervalID);
-    });
+        return () => clearInterval(scoreTimerRef.current);
+    }, [score]);
 
     useEffect(() => {
-        let { gameMode, userName } = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
+        let { gameMode, userName, scoreList } = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
         setGameMode(gameMode);
         setUserName(userName);
+        setScoreList(scoreList);
         console.log(`useEffect GameScree :: ${gameMode} + ${userName}`);
     }, []);
 
 
     const onFinishGame = () => {
-        
+        console.log("onFinsishGame called");
+        clearInterval(scoreTimerRef.current);
+        let numberOfGames = scoreList.length;
+        let scoreListArr = scoreList;
+        scoreListArr.push({
+            title: `Game ${numberOfGames + 1}`,
+            score,
+            isHighest: false
+        })
+        storageHelper.save(KEYS.UserInfo, JSON.stringify({ userName: userName.toUpperCase(), gameMode, scoreList: scoreListArr }));
+        changePage(2);
     }
+
+
+    const scoreBoard = scoreList.map(userScore => (<li>{`${userScore.title} :: ${getTotalTimeFromSeconds(userScore.score)} `}</li>));
 
     return (
         <div className="container">
             <div className="header">
-                <div>
-                    <p className="commonText"><FaUser size="30px" /> {userName}</p>
-                    <p className="commonText"><FaGamepad size="30px" /> {gameMode}</p>
-                </div>
+                <UserInfo userName={userName} gameMode={gameMode} />
                 <LiveScore displayScore={score} />
             </div>
             <div className="content">
@@ -50,10 +69,11 @@ export default function GameScreen() {
                     </div>
                     <div className="alignLeftCenter">
                         <ul>
+                            {scoreBoard}
+                            {/* <li>Game 1 : 1:14</li>
                             <li>Game 1 : 1:14</li>
                             <li>Game 1 : 1:14</li>
-                            <li>Game 1 : 1:14</li>
-                            <li>Game 1 : 1:14</li>
+                            <li>Game 1 : 1:14</li> */}
                         </ul>
                     </div>
                 </div>
@@ -62,7 +82,7 @@ export default function GameScreen() {
                 </div>
             </div>
             <div className="footer">
-                <button type="submit" className="btn"><IoClose size="55px" />STOP GAME</button>
+                <button type="submit" className="btn"><IoClose size="55px" onClick={onFinishGame} />STOP GAME</button>
             </div>
         </div>
     )
