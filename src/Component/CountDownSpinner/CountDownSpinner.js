@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { formatTimeLeft, getTotalTimeFromMiliSeconds, setRemainingPathColor, updateCircleDasharray } from '../../Utilities/constants';
+import { getTotalTimeFromMiliSeconds, setRemainingPathColor, updateCircleDasharray } from '../../Utilities/constants';
 import './CountDownSpinner.css'
 import PropTypes from 'prop-types';
 
@@ -22,7 +22,7 @@ export default function CountDownSpinner({ timer, wordToDisplay, onTimeOut }) {
             resetTimer();
             onTimeOut();
         }
-    }, [remainingTime])
+    }, [onTimeOut, remainingTime, timer])
 
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function CountDownSpinner({ timer, wordToDisplay, onTimeOut }) {
             startTimer();
         }
         return () => resetTimer();
-    }, [])
+    }, []);
 
 
 

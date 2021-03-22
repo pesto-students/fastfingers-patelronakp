@@ -23,9 +23,6 @@ export const getTotalTimeFromSeconds = (totalSeconds) => {
 }
 
 export const getTotalTimeFromMiliSeconds = (totalSeconds) => {
-    function prefix(number) {
-        return (number < 10 ? "0" : "") + number;
-    }
     const seconds = (totalSeconds / 1000).toFixed(2);
     return `${seconds}`;
 }
@@ -86,6 +83,5 @@ export const updateCircleDasharray = (leftTime, time_limit) => {
     const newcircleDasharray = `${(
         calculateTimeFraction(leftTime, time_limit) * FULL_DASH_ARRAY
     ).toFixed(0)} 283`;
-    //console.log("newcircleDasharray::" + newcircleDasharray)
     return newcircleDasharray;
 }
