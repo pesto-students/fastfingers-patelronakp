@@ -7,7 +7,7 @@ export default function UserInfo({ userName, gameMode }) {
     return (
         <div>
             <p className="commonText"><FaUser size="30px" /> {userName}</p>
-            <p className="commonText"><FaGamepad size="30px" /> {gameMode !== "" && GameModeParams[gameMode].mode}</p>
+            <p className="commonText"><FaGamepad size="30px" /> Level : {gameMode !== "" && GameModeParams[gameMode].mode}</p>
         </div>
     );
 }
