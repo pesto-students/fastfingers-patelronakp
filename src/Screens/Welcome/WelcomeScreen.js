@@ -34,7 +34,7 @@ export default function WelcomeScreen({ changePage }) {
                     </select>
                 </div>
                 <div>
-                    <button type="submit" className="btn"><FaPlay size="42px" /> Success</button>
+                    <button type="submit" className="btn"><FaPlay size="42px" /> START GAME </button>
                 </div>
             </form>
         </div>

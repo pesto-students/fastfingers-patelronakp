@@ -26,16 +26,16 @@ export default function CountDownSpinner({ timer, wordToDisplay, onTimeOut }) {
 
 
     useEffect(() => {
-        if (remainingTime <= 0) {
+        if (timer <= 0) {
             clearInterval(countDownTimerRef.current);
         } else {
             countDownTimerRef.current = setInterval(() => {
-                if (remainingTime > 0)
+                if (timer > 0)
                     setRemainingTime(prevTime => prevTime - 5);
             }, 1);
         }
         return () => clearInterval(countDownTimerRef.current);
-    }, [remainingTime]);
+    }, [timer]);
 
 
     return (
