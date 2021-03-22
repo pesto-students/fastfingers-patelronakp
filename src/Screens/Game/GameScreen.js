@@ -26,6 +26,7 @@ export default function GameScreen({ changePage }) {
     }, [score]);
 
     const onFinishGame = () => {
+
         clearInterval(scoreTimerRef.current);
         let numberOfGames = scoreList.length;
         let scoreListArr = scoreList;
@@ -49,7 +50,6 @@ export default function GameScreen({ changePage }) {
     }
 
     const updateGameMode = (newGameMode) => {
-        console.log("newGameMode ::" + newGameMode);
         setGameMode(newGameMode);
     }
 
@@ -83,7 +83,7 @@ export default function GameScreen({ changePage }) {
                 </div>
             </div>
             <div className="footer">
-                <button type="submit" className="btn"><IoClose size="55px" onClick={onFinishGame} />STOP GAME</button>
+                <button type="submit" className="btn" onClick={onFinishGame}><IoClose size="55px" />STOP GAME</button>
             </div>
         </div>
     )

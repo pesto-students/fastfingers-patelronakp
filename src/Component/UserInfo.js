@@ -3,7 +3,6 @@ import { FaUser, FaGamepad, } from 'react-icons/fa';
 import { GameModeParams } from '../Utilities/constants';
 import PropTypes from 'prop-types';
 export default function UserInfo({ userName, gameMode }) {
-    console.log("UserInfo" + userName);
 
     return (
         <div>

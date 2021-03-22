@@ -5,20 +5,13 @@ import WordCheck from './WordCheck';
 import PropTypes from 'prop-types';
 
 export default function GamePlay({ onFinishGame, difficultyLevel, data, onUpdateGameMode }) {
-
     const [words, setWords] = useState([]);
-    const [errorMessage, setErrorMessage] = useState("");
     const [activeWord, setActiveWord] = useState("");
     const [word, setWord] = useState("");
     const [remainingTime, setRemainingTime] = useState(0);
     const [difficultyFactor, setdifficultyFactor] = useState(GameModeParams[difficultyLevel].difficultyFactor);
 
     useEffect(() => {
-        setWordsBasedOnDifficultyLevel();
-        return () => { };
-    }, []);
-
-    const setWordsBasedOnDifficultyLevel = () => {
         let gameModeParam = GameModeParams[difficultyLevel];
         let filterwords = data.filter(word => gameModeParam.allowedWord(word));
         setWords(filterwords);
@@ -29,10 +22,8 @@ export default function GamePlay({ onFinishGame, difficultyLevel, data, onUpdate
         setActiveWord(newWord);
         let timer = Math.ceil(newWord.length / gameModeParam.difficultyFactor);
         setRemainingTime(timer);
-        //setdifficultyFactor(gameModeParam.difficultyFactor);
-        console.log("Timer Generated ::" + timer);
-    }
-
+        return () => { };
+    }, [data, difficultyLevel]);
 
     const generateNextWord = () => {
         const randomNumber = Math.floor(
@@ -46,7 +37,6 @@ export default function GamePlay({ onFinishGame, difficultyLevel, data, onUpdate
 
         setdifficultyFactor(updateddifficultyFactor);
         setRemainingTime(timer > 2 ? timer : 2);
-        console.log("Difficulty Level ::" + updateddifficultyFactor);
     }
 
     useEffect(() => {
@@ -59,12 +49,11 @@ export default function GamePlay({ onFinishGame, difficultyLevel, data, onUpdate
                 onUpdateGameMode(newLevel);
             }
         }
-    }, [difficultyFactor]);
+    }, [data, difficultyFactor, difficultyLevel, onUpdateGameMode]);
 
 
     const onChangeOfInput = (e) => {
         const { target: { value } = {} } = e;
-        //console.log(value);
         setWord(value.toUpperCase());
     };
 
