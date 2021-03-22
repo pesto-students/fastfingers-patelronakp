@@ -19,7 +19,7 @@ export default function CountDownSpinner({ timer, wordToDisplay, onTimeOut }) {
         setCircleDasharray(updateCircleDasharray(remainingTime, timer));
         setremainingPathColor(setRemainingPathColor(remainingTime));
         if (remainingTime <= 0) {
-            resetTimer();
+            clearInterval(countDownTimerRef.current);
             onTimeOut();
         }
     }, [onTimeOut, remainingTime, timer])
@@ -27,25 +27,16 @@ export default function CountDownSpinner({ timer, wordToDisplay, onTimeOut }) {
 
     useEffect(() => {
         if (remainingTime <= 0) {
-            resetTimer();
+            clearInterval(countDownTimerRef.current);
         } else {
-            startTimer();
+            countDownTimerRef.current = setInterval(() => {
+                if (remainingTime > 0)
+                    setRemainingTime(prevTime => prevTime - 5);
+            }, 1);
         }
-        return () => resetTimer();
-    }, []);
+        return () => clearInterval(countDownTimerRef.current);
+    }, [remainingTime]);
 
-
-
-    const startTimer = () => {
-        countDownTimerRef.current = setInterval(() => {
-            if (remainingTime > 0)
-                setRemainingTime(prevTime => prevTime - 5);
-        }, 1);
-    }
-
-    const resetTimer = () => {
-        clearInterval(countDownTimerRef.current);
-    }
 
     return (
         <div>
