@@ -4,6 +4,7 @@ import WelcomeScreen from './Screens/Welcome/WelcomeScreen'
 import { KEYS } from './Utilities/constants'
 import GameScreen from './Screens/Game/GameScreen';
 import storageHelper from './Utilities/storageHelper'
+import ResultScreen from './Screens/Result/ResultScreen';
 
 
 function App() {
@@ -23,7 +24,10 @@ function App() {
     <div className="App">
       {/* <WelcomeScreen /> */}
       {
-        activePage === 0 ? <WelcomeScreen changePage={onChangePage} /> : <GameScreen changePage={onChangePage} />
+        activePage === 0 ?
+          <WelcomeScreen changePage={onChangePage} /> :
+          activePage === 1 ? <GameScreen changePage={onChangePage} /> :
+            <ResultScreen changePage={onChangePage} />
       }
     </div>
   );

@@ -1,0 +1,15 @@
+.gameArea {
+  color: #fff;
+}
+
+.gameArea .scoreTitle {
+  font-size: 70px;
+}
+
+.gameArea .score {
+  font-size: 112px;
+}
+
+.gameArea .highScore {
+  font-size: 53px;
+}

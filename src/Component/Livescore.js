@@ -1,5 +1,8 @@
 import React from 'react'
 import { getTotalTimeFromSeconds } from '../Utilities/constants';
+import PropTypes from 'prop-types';
+
+
 export default function LiveScore({ displayScore }) {
     return (
         <div>
@@ -7,5 +10,15 @@ export default function LiveScore({ displayScore }) {
             <p className="commonText">SCORE : {getTotalTimeFromSeconds(displayScore)}</p>
         </div>
     )
-
 }
+
+
+LiveScore.propTypes = {
+    displayScore: PropTypes.number,
+}
+
+
+LiveScore.defaultProps = {
+    displayScore: 0,
+
+};

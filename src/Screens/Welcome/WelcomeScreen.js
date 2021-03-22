@@ -3,16 +3,17 @@ import { APP_LOGO, KEYS } from '../../Utilities/constants'
 import storageHelper from '../../Utilities/storageHelper'
 import './WelcomeScreen.css'
 import { FaPlay } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 export default function WelcomeScreen({ changePage }) {
 
     const [userName, setUserName] = useState("");
-    const [gameMode, setGameMode] = useState("Easy");
+    const [gameMode, setGameMode] = useState(0);
 
 
     const onSubmitSignUpForm = (e) => {
         e.preventDefault();
-        storageHelper.save(KEYS.UserInfo, JSON.stringify({ userName: userName.toUpperCase(), gameMode }));
+        storageHelper.save(KEYS.UserInfo, JSON.stringify({ userName: userName.toUpperCase(), gameMode, scoreList: [] }));
         changePage(1);
     };
 
@@ -26,10 +27,10 @@ export default function WelcomeScreen({ changePage }) {
                     <input type="text" placeholder="type your name" required onChange={(e) => setUserName(e.target.value)} value={userName} ></input>
                 </div>
                 <div>
-                    <select name="gameMode" id="gameMode" onChange={(e) => setGameMode(e.target.value)} value={gameMode}>
-                        <option value="Easy">Easy</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Hard">Hard</option>
+                    <select name="gameMode" id="gameMode" onChange={(e) => setGameMode(parseInt(e.target.value))} value={gameMode}>
+                        <option value="0">Easy</option>
+                        <option value="1">Medium</option>
+                        <option value="2">Hard</option>
                     </select>
                 </div>
                 <div>
@@ -39,3 +40,14 @@ export default function WelcomeScreen({ changePage }) {
         </div>
     )
 }
+
+
+WelcomeScreen.propTypes = {
+    changePage: PropTypes.func,
+}
+
+
+WelcomeScreen.defaultProps = {
+    changePage: () => { }
+};
+

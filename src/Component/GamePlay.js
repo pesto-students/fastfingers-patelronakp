@@ -2,42 +2,37 @@ import React, { useState, useEffect } from 'react'
 import { GameModeParams } from "../Utilities/constants";
 import CountDownSpinner from './CountDownSpinner/CountDownSpinner';
 import WordCheck from './WordCheck';
+import PropTypes from 'prop-types';
 
-export default function GamePlay({ onFinishGame, difficultyLevel }) {
-
-
+export default function GamePlay({ onFinishGame, difficultyLevel, data, onUpdateGameMode }) {
 
     const [words, setWords] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [activeWord, setActiveWord] = useState("");
     const [word, setWord] = useState("");
     const [remainingTime, setRemainingTime] = useState(0);
-    const [difficultyFactor, setdifficultyFactor] = useState(0);
-
-
+    const [difficultyFactor, setdifficultyFactor] = useState(GameModeParams[difficultyLevel].difficultyFactor);
 
     useEffect(() => {
-        fetch("/dictionary.json")
-            .then((response) => response.json())
-            .then((jsonResponse) => {
-                console.log(difficultyLevel);
-                let gameModeParam = GameModeParams[difficultyLevel]
-                let filterwords = jsonResponse.filter(word => gameModeParam.allowedWord(word));
-                setWords(filterwords);
-                const randomNumber = Math.floor(
-                    Math.random() * filterwords.length
-                );
-                let newWord = filterwords[randomNumber].toUpperCase();
-                setActiveWord(newWord);
-                let timer = Math.ceil(newWord.length / gameModeParam.difficultyFactor);
-                setRemainingTime(timer);
-                setdifficultyFactor(gameModeParam.difficultyFactor);
-            })
-            .catch((error) => {
-                setErrorMessage(error.Message);
-            });
+        setWordsBasedOnDifficultyLevel();
         return () => { };
-    }, [errorMessage, difficultyLevel]);
+    }, []);
+
+    const setWordsBasedOnDifficultyLevel = () => {
+        let gameModeParam = GameModeParams[difficultyLevel];
+        let filterwords = data.filter(word => gameModeParam.allowedWord(word));
+        setWords(filterwords);
+        const randomNumber = Math.floor(
+            Math.random() * filterwords.length
+        );
+        let newWord = filterwords[randomNumber].toUpperCase();
+        setActiveWord(newWord);
+        let timer = Math.ceil(newWord.length / gameModeParam.difficultyFactor);
+        setRemainingTime(timer);
+        //setdifficultyFactor(gameModeParam.difficultyFactor);
+        console.log("Timer Generated ::" + timer);
+    }
+
 
     const generateNextWord = () => {
         const randomNumber = Math.floor(
@@ -46,12 +41,26 @@ export default function GamePlay({ onFinishGame, difficultyLevel }) {
         let newWord = words[randomNumber].toUpperCase();
         setActiveWord(newWord);
         setWord("");
-        let updateddifficultyFactor = difficultyFactor + 0.01;
+        let updateddifficultyFactor = difficultyFactor + 0.05;
         let timer = Math.ceil(newWord.length / updateddifficultyFactor);
+
         setdifficultyFactor(updateddifficultyFactor);
         setRemainingTime(timer > 2 ? timer : 2);
-        console.log(timer);
+        console.log("Difficulty Level ::" + updateddifficultyFactor);
     }
+
+    useEffect(() => {
+        if (difficultyLevel !== 2) {
+            let newLevel = difficultyLevel + 1;
+            if (difficultyFactor >= GameModeParams[newLevel].difficultyFactor) {
+                let gameModeParam = GameModeParams[newLevel];
+                let filterwords = data.filter(word => gameModeParam.allowedWord(word));
+                setWords(filterwords);
+                onUpdateGameMode(newLevel);
+            }
+        }
+    }, [difficultyFactor]);
+
 
     const onChangeOfInput = (e) => {
         const { target: { value } = {} } = e;
@@ -61,12 +70,28 @@ export default function GamePlay({ onFinishGame, difficultyLevel }) {
 
 
     return (
-        <div>
-            <CountDownSpinner timer={remainingTime} wordToDisplay={activeWord} onTimeOut={onFinishGame} />
+        <>
+            {remainingTime !== 0 &&
+                <CountDownSpinner timer={remainingTime * 1000} wordToDisplay={activeWord} onTimeOut={onFinishGame} />}
             <WordCheck wordToDisplay={activeWord} wordTocheck={word} onWordMatch={generateNextWord} />
             <div>
-                <input type="text" name="userWord" onChange={onChangeOfInput} value={word} autoComplete="off"></input>
+                <input type="text" name="userWord" onChange={onChangeOfInput} value={word} autoComplete="off" autoFocus ></input>
             </div>
-        </div>
+        </>
     )
 }
+
+GamePlay.propTypes = {
+    difficultyLevel: PropTypes.number,
+    data: PropTypes.array,
+    onFinishGame: PropTypes.func,
+    onUpdateGameMode: PropTypes.func
+}
+
+
+GamePlay.defaultProps = {
+    difficultyLevel: 0,
+    data: [],
+    onFinishGame: () => { },
+    onTimeOut: () => { },
+};
