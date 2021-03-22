@@ -52,6 +52,10 @@ h1 {
   font-size: 8em;
 }
 
+p{
+  margin: 0px;
+}
+
 input[type="text"] {
   width: 100%;
   border-radius: 15px;

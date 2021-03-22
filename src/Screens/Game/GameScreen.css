@@ -47,6 +47,7 @@ li p {
 }
 
 .gameArea {
+  padding: 10px;
   border: solid 3px var(--textColor);
   display: flex;
   flex-direction: column;
