@@ -1,28 +1,27 @@
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import UserInfo from '../../Component/UserInfo';
 import { getTotalTimeFromSeconds, KEYS } from '../../Utilities/constants';
 import storageHelper from '../../Utilities/storageHelper';
 import { IoReload } from 'react-icons/io5';
 import './ResultScreen.css'
+import PropTypes from 'prop-types';
+
+const getTheLastScore = (scoreList) => {
+    let lastScore = scoreList.length > 0 ? scoreList[scoreList.length - 1] : {
+        title: ``,
+        score: 0,
+        isHighest: false
+    };
+    return lastScore;
+}
+
+
 export default function ResultScreen({ changePage }) {
-    const [userName, setUserName] = useState("");
-    const [gameMode, setGameMode] = useState("");
-    const [score, setScore] = useState({});
-
-
-    useEffect(() => {
-        let { gameMode, userName, scoreList } = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
-        setGameMode(gameMode);
-        setUserName(userName);
-        let lastScore = scoreList.length > 0 ? scoreList[scoreList.length - 1] : {
-            title: ``,
-            score: 0,
-            isHighest: false
-        };
-        setScore(lastScore);
-        console.log(`useEffect GameScree :: ${gameMode} + ${userName}`);
-    }, []);
+    let userInfo = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
+    const [userName] = useState(userInfo.userName);
+    const [gameMode] = useState(userInfo.gameMode);
+    const [score] = useState(getTheLastScore(userInfo.scoreList));
 
     const onQuitOfGame = () => {
         storageHelper.resetAll();
@@ -51,3 +50,14 @@ export default function ResultScreen({ changePage }) {
         </div >
     );
 }
+
+
+
+ResultScreen.propTypes = {
+    changePage: PropTypes.func,
+}
+
+
+ResultScreen.defaultProps = {
+    changePage: () => { }
+};

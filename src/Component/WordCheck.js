@@ -1,5 +1,6 @@
 
 import React from 'react'
+import PropTypes from 'prop-types';
 
 export default function WordCheck({ wordToDisplay, wordTocheck, onWordMatch }) {
 
@@ -42,3 +43,18 @@ export default function WordCheck({ wordToDisplay, wordTocheck, onWordMatch }) {
 
     return (<DisplayWord />);
 }
+
+
+
+WordCheck.propTypes = {
+    wordToDisplay: PropTypes.string,
+    wordTocheck: PropTypes.string,
+    onWordMatch: PropTypes.func
+}
+
+
+WordCheck.defaultProps = {
+    wordToDisplay: "",
+    wordTocheck: "",
+    onWordMatch: () => { }
+};

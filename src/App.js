@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     let userInfo = storageHelper.fetch(KEYS.UserInfo);
     if (userInfo != null) {
-      setActivePage(2);
+      setActivePage(1);
     }
   }, [])
 
