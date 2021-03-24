@@ -18,13 +18,13 @@ const getTheLastScore = (scoreList) => {
 
 
 export default function ResultScreen({ changePage }) {
-    let userInfo = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
+    let userInfo = storageHelper.fetch(KEYS.UserInfo);
     const [userName] = useState(userInfo.userName);
     const [gameMode] = useState(userInfo.gameMode);
     const [score] = useState(getTheLastScore(userInfo.scoreList));
 
     const onQuitOfGame = () => {
-        storageHelper.resetAll();
+        //storageHelper.resetAll();
         changePage(0);
     }
 
@@ -33,15 +33,19 @@ export default function ResultScreen({ changePage }) {
         <div className="container">
             <div className="header">
                 <UserInfo userName={userName} gameMode={gameMode} />
+                <div>
+                    <p className="commonText gameTitle">Fast Fingers</p>
+
+                </div>
             </div>
             <div className="gameArea">
                 <div >
                     <div className="scoreTitle">SCORE : {score.title}</div>
                     <div className="score">{getTotalTimeFromSeconds(score.score)}</div>
                     {
-                        score.isHighest === true && <div className="highScore">New High Score</div>
+                        score.isHighest === true && <div className="highScore pulseEffect">New High Score</div>
                     }
-                    <button type="submit" className="btn" onClick={() => changePage(1)} ><IoReload size="55px" />Play Again</button>
+                    <button type="submit" className="btn" onClick={() => changePage(1)} ><IoReload size="50px" />Play Again</button>
                 </div>
             </div>
             <div className="footer">

@@ -11,7 +11,7 @@ import DataDictionary from '../../assets/dictionary.json';
 import PropTypes from 'prop-types';
 
 export default function GameScreen({ changePage }) {
-    let userInfo = JSON.parse(storageHelper.fetch(KEYS.UserInfo));
+    let userInfo = storageHelper.fetch(KEYS.UserInfo);
     const [userName] = useState(userInfo.userName);
     const [gameMode, setGameMode] = useState(userInfo.gameMode);
     const [scoreList] = useState(userInfo.scoreList);
@@ -63,7 +63,7 @@ export default function GameScreen({ changePage }) {
 
     return (
         <div className="container">
-            <div className="header">
+            <div className="header popout">
                 <UserInfo userName={userName} gameMode={gameMode} />
                 <LiveScore displayScore={score} />
             </div>
@@ -78,12 +78,12 @@ export default function GameScreen({ changePage }) {
                         </ul>
                     </div>
                 </div>
-                <div className="gameArea">
+                <div className="gameArea ">
                     <GamePlay onFinishGame={onFinishGame} difficultyLevel={gameMode} data={DataDictionary} onUpdateGameMode={updateGameMode} />
                 </div>
             </div>
-            <div className="footer">
-                <button type="submit" className="btn" onClick={onFinishGame}><IoClose size="55px" />STOP GAME</button>
+            <div className="footer bottomEntry">
+                <button type="submit" className="btn" onClick={onFinishGame}><IoClose size="65px" />STOP GAME</button>
             </div>
         </div>
     )

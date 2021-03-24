@@ -8,8 +8,17 @@
 
 .gameArea .score {
   font-size: 112px;
+  font-family: "Rye", "Orbitron";
 }
 
 .gameArea .highScore {
   font-size: 53px;
+  font-family: "Monoton", "Rye", "Orbitron";
+  animation: pulse 0.5s ease-in infinite;
+}
+
+
+@keyframes pulse{
+  25%  {transform: scale(0.9);}
+  75%  {transform: scale(1.1);}
 }

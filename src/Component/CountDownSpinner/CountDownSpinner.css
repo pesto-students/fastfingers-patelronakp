@@ -41,6 +41,7 @@
 }
 
 .base-timer__label {
+  font-family: 'Rye', 'Orbitron';
   position: absolute;
   width: 300px;
   height: 300px;
