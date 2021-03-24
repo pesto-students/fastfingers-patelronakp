@@ -7,6 +7,10 @@
   justify-content: center;
 }
 
+.centerBox h1{
+  font-family: 'Monoton', 'Rye', 'Orbitron';
+}
+
 h2 {
   padding: 0 20px;
   font-size: 2.6em;
@@ -20,3 +24,4 @@ h2 div {
   line-height: 0.1em;
   margin: 10px 0 20px;
 }
+

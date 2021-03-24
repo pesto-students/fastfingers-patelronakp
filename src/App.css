@@ -35,6 +35,7 @@ body {
   background-size: cover;
   font-size: 10px;
   color: var(--textColor);
+  font-family: "Audiowide";
 }
 
 .App {
@@ -45,6 +46,7 @@ body {
   margin: 0px;
   opacity: 0.8;
   display: flex;
+  flex-wrap: wrap;
 }
 
 h1 {
@@ -52,7 +54,7 @@ h1 {
   font-size: 8em;
 }
 
-p{
+p {
   margin: 0px;
 }
 
@@ -102,6 +104,7 @@ select:focus {
 }
 
 .btn {
+  font-family: "Audiowide";
   border: none;
   background-color: inherit;
   padding: 14px 28px;
@@ -112,6 +115,11 @@ select:focus {
   text-align: center;
   /* display: flex; */
   align-items: center;
+  justify-content: center;
+}
+
+.btn svg {
+  padding-top: 8px;
 }
 
 .btn:focus {
@@ -125,11 +133,18 @@ select:focus {
 
 .commonText {
   margin: 0;
-  font-family: Breamcatcher;
   font-size: 44px;
   text-align: left;
   color: #ff5155;
   margin: 0 0 10 0;
+}
+
+.gameTitle {
+  font-family: "Monoton", "Rye", "Orbitron";
+}
+
+.countDown {
+  font-family: "Rye", "Orbitron";
 }
 
 .container {
@@ -172,3 +187,59 @@ select:focus {
   color: #61dafb;
 }
 
+.logo {
+  position: relative;
+  animation: movelogo 2s;
+}
+
+@keyframes movelogo {
+  from {
+    bottom: 100px;
+  }
+  to {
+    bottom: 0px;
+  }
+}
+
+.bottomEntry {
+  position: relative;
+  animation: moveBottom 2s;
+}
+
+@keyframes moveBottom {
+  from {
+    top: 200px;
+  }
+  to {
+    top: 0px;
+  }
+}
+
+.popout {
+  animation: popout 1s ease;
+  -webkit-animation: popout 1s ease;
+}
+@keyframes popout {
+  from {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.pulseEffect {
+  animation: pulse 0.5s ease-in infinite;
+}
+
+@keyframes pulse {
+  25% {
+    transform: scale(0.9);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}

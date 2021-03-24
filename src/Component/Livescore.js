@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 export default function LiveScore({ displayScore }) {
     return (
         <div>
-            <p className="commonText">Fast Fingers</p>
-            <p className="commonText">SCORE : {getTotalTimeFromSeconds(displayScore)}</p>
+            <p className="commonText gameTitle">Fast Fingers</p>
+            <p className="commonText countDown">SCORE : {getTotalTimeFromSeconds(displayScore)}</p>
         </div>
     )
 }

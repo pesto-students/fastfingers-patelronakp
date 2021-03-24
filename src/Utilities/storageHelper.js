@@ -4,12 +4,13 @@ const storageHelper = {
         sessionStorage.setItem(uniqueKey, value);
     },
     fetch: (uniqueKey) => {
-        return sessionStorage.getItem(uniqueKey);
+        let userObject = sessionStorage.getItem(uniqueKey);
+        return userObject ? JSON.parse(userObject) : { userName: '', gameMode: 0 };
     },
     resetAll: () => {
         sessionStorage.clear();
     },
-    
+
 
 }
 
