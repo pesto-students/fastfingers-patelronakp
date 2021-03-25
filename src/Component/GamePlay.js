@@ -32,7 +32,7 @@ export default function GamePlay({ onFinishGame, difficultyLevel, data, onUpdate
         let newWord = words[randomNumber].toUpperCase();
         setActiveWord(newWord);
         setWord("");
-        let updateddifficultyFactor = difficultyFactor + 0.05;
+        let updateddifficultyFactor = difficultyFactor + 0.01;
         let timer = Math.ceil(newWord.length / updateddifficultyFactor);
 
         setdifficultyFactor(updateddifficultyFactor);
