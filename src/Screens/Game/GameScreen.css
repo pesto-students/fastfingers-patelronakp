@@ -1,0 +1,89 @@
+.scoreBoard {
+  display: flex;
+  width: 22%;
+  min-width: 370px;
+  flex-direction: column;
+  padding: 33px;
+  border-radius: 15px;
+  border: solid 3px var(--textColor);
+  margin-right: 20px;
+}
+
+.scoreBoard .title {
+  display: flex;
+  flex-grow: 0;
+  align-items: center;
+  justify-content: center;
+}
+.scoreBoard h3 {
+  font-size: 30px;
+  margin: 0px;
+}
+
+.alignLeftCenter {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+ul {
+  list-style-type: none;
+  margin: 20px 0px;
+  padding: 0px;
+  width:100%;
+  text-align: left;
+}
+
+li {
+  font-size: 30px;
+  color: #fff;
+  margin:10px 0px;
+}
+
+li p {
+  font-size: 15px;
+  color: var(--textColor);
+  text-align:left;
+  margin-bottom: 0px;
+}
+
+.gameArea {
+  padding: 10px;
+  border: solid 3px var(--textColor);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin: 20px 0px;
+}
+
+.footer .btn {
+  padding: 0px;
+  display: flex;
+}
+
+input {
+  text-align: center;
+}
+
+.displayWord {
+  font-size: 92px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.displayWord .match {
+  color: green;
+}
+
+.displayWord .unmatch {
+  color: #445298;
+}
